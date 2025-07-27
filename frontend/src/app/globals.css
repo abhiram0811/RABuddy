@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Enhanced response formatting */
+.formatted-response {
+  line-height: 1.7;
+  font-size: 15px;
+  color: #374151;
+}
+
+.formatted-response p {
+  margin-bottom: 16px;
+  text-align: justify;
+}
+
+.formatted-response p:last-child {
+  margin-bottom: 0;
+}
+
+/* Improved text readability */
+.formatted-response {
+  white-space: normal;
+  word-spacing: 0.1em;
+}
+
+/* Better spacing for lists and structured content */
+.formatted-response ul,
+.formatted-response ol {
+  margin: 12px 0;
+  padding-left: 20px;
+}
+
+.formatted-response li {
+  margin-bottom: 6px;
+  line-height: 1.6;
+}
+
+/* Enhanced citation styling */
+.citation-number {
+  display: inline-block;
+  margin: 0 2px;
+  font-weight: 600;
+  vertical-align: baseline;
+}
+
+/* Better paragraph spacing and typography */
+.formatted-response p + p {
+  margin-top: 16px;
+}
+
+/* Enhance readability with better text formatting */
+.formatted-response {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Enhanced numbered list styling */
+.formatted-response ol.list-none {
+  margin: 16px 0;
+  padding-left: 0;
+}
+
+.formatted-response ol.list-none li {
+  margin-bottom: 12px;
+  padding: 8px 0;
+  border-left: 3px solid #f3f4f6;
+  padding-left: 16px;
+  margin-left: 0;
+}
+
+.formatted-response ol.list-none li:hover {
+  border-left-color: #10b981;
+  background-color: #f9fafb;
+  transition: all 0.2s ease;
+}

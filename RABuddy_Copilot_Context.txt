@@ -1,0 +1,73 @@
+SYSTEM:
+You are an expert AI developer and software architect. Your goal is to design and generate the full codebase and project structure for a lightweight, scalable Retrieval-Augmented Generation (RAG) assistant named RABuddy, which helps Resident Assistants (RAs) at Colorado State University’s Housing & Dining Services answer questions about Housing and Dining policies, duties, forms, emergency contacts, and processes. The assistant uses AI to provide summarized, accurate, and referenced answers from a set of PDF documents.
+
+USER:
+I want to build an end-to-end RAG agent called RABuddy that:
+
+- Helps Resident Assistants (RAs) at Colorado State University Housing & Dining
+- Answers questions like:
+    - “What’s the protocol for lockouts after midnight?”
+    - “Who should I contact in case of a facilities emergency?”
+    - “Where do I find the guest policy form?”
+
+🔧 Tech Stack
+- LLM Inference: Use OpenRouter API with deepseek-chat-v3-0324 (a free Claude-like model)
+- Vector DB: Use ChromaDB (local file-based vector DB for PDFs)
+- Backend: Flask, hosted on Render (Free tier)
+- Frontend: Next.js, hosted on Vercel
+- Feedback Logging: Use loguru to log user inputs, answers, and feedback
+- Persistent Storage: Use Supabase Free Tier (PostgreSQL + Auth if needed)
+- PDFs: The documents have images, page numbers, links, and are sometimes scanned. These should be processed and chunked optimally for retrieval.
+
+🗂️ Requirements
+- Extract clean text and metadata from PDFs
+- Embed content using a lightweight embedding model (e.g., BAAI/bge-small-en or intfloat/e5-small)
+- Populate ChromaDB and make it persistent across restarts
+- Build a Flask API with endpoints:
+    - /query: Accepts a question and returns a LLM-based answer + source chunks
+    - /feedback: Logs thumbs up/down + optional comment
+- Build a Next.js frontend with a chat UI + feedback thumbs
+- Let users access the app from any location (public URLs via Render + Vercel)
+
+🔍 Specific Tasks
+1. Preprocessing PDFs:
+    - Use PyMuPDF (fitz) or pdfplumber to extract text, images, and link metadata
+    - Clean text and chunk into ~300-500 tokens
+    - Add source info: filename, page number, original link if present
+
+2. Embedding:
+    - Use sentence-transformers or Instructor-XL if cost-effective
+    - Store in ChromaDB with persistent storage (persist_directory="./chroma_store")
+
+3. Flask Backend:
+    - Connect OpenRouter for inference (DeepSeek model)
+    - Handle retrieval, context injection, and answer generation
+    - Log feedback via loguru + optional Supabase table
+    - Render-friendly structure (app.py, routes.py, db.py)
+
+4. Frontend (Next.js):
+    - Deploy on Vercel
+    - Pages:
+        - /: Chat UI (question input, AI answer, sources)
+        - Feedback controls: 👍 / 👎 / textarea
+
+5. Free Hosting Strategy:
+    - Host ChromaDB locally on Render in disk mode
+    - Ensure Chroma uses a mounted volume or persist_directory
+    - Streamlit fallback: if API fails, load a basic interface
+    - Keep costs free by using:
+        - OpenRouter (free models)
+        - Render free tier (512 MB RAM, SQLite allowed)
+        - Supabase (free DB + auth)
+
+6. Security / Limits:
+    - Add CORS handling on Flask
+    - Use .env for OpenRouter key
+    - Rate-limit queries per IP (optional)
+
+7. Extras (if you want to generate):
+    - Dockerfile + requirements.txt
+    - Supabase schema for logging: user_id, question, answer, feedback, timestamp
+    - Full project folder structure + sample README
+
+Generate everything with clean code, comments, and scalable structure.
