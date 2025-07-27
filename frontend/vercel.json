@@ -8,7 +8,7 @@
     }
   ],
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://5edfb50ba1b6.ngrok-free.app/api"
+    "NEXT_PUBLIC_API_URL": "https://rabuddy-backend.onrender.com/api"
   },
   "headers": [
     {

@@ -147,7 +147,7 @@ export default function ChatInterface() {
     setLoading(true)
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5001/api'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
       console.log('API URL:', apiUrl)
       console.log('Environment variable:', process.env.NEXT_PUBLIC_API_URL)
       console.log('Sending request to:', `${apiUrl}/query`)
