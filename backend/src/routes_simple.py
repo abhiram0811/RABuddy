@@ -5,6 +5,19 @@ import traceback
 # Initialize blueprint
 api_bp = Blueprint('api', __name__)
 
+@api_bp.route('/', methods=['GET'])
+def api_root():
+    """API root endpoint"""
+    return jsonify({
+        "message": "RABuddy API",
+        "version": "1.0.0",
+        "endpoints": {
+            "POST /query": "Ask questions about CSU housing policies",
+            "POST /feedback": "Submit feedback for answers",
+            "GET /status": "Check API status"
+        }
+    })
+
 @api_bp.route('/query', methods=['POST'])
 def handle_query():
     """Handle user questions - simplified version for testing"""
