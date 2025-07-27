@@ -36,11 +36,6 @@ def create_render_app():
         # Create the Flask app
         app = create_app(config)
         
-        # Add health check endpoint required by Render
-        @app.route('/health')
-        def health_check():
-            return {'status': 'healthy', 'service': 'RABuddy Backend'}, 200
-            
         # Add render-specific endpoint info
         @app.route('/api/info')
         def api_info():
