@@ -3,23 +3,44 @@ from flask_cors import CORS
 from dotenv import load_dotenv
 import os
 from loguru import logger
+from pathlib import Path
 
 # Load environment variables
 load_dotenv()
 
-def create_app():
+def create_app(config=None):
     """Create and configure the Flask application"""
     app = Flask(__name__)
     
-    # Configure CORS
-    CORS(app, origins=["http://localhost:3000", "https://*.vercel.app"])
+    # Import config after Flask initialization
+    from config import get_config, CORS_ORIGINS
     
-    # Configure Flask
-    app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY', 'dev-secret-key')
+    # Apply configuration
+    if config:
+        app_config = config
+    else:
+        app_config = get_config()
     
-    # Setup logging
-    logger.add("logs/rabuddy.log", rotation="10 MB", retention="7 days")
-    logger.info("RABuddy application starting up")
+    for key, value in app_config.items():
+        app.config[key] = value
+    
+    # Configure CORS for cloud deployment
+    CORS(app, origins=CORS_ORIGINS, 
+         allow_headers=["Content-Type", "Authorization"],
+         methods=["GET", "POST", "OPTIONS"])
+    
+    # Setup logging (simplified for cloud)
+    if app_config.get('ENVIRONMENT') == 'production':
+        logger.remove()  # Remove default handler
+        logger.add(lambda msg: print(msg, end=""), level="INFO")
+    else:
+        # Create logs directory if it doesn't exist
+        logs_dir = Path(__file__).parent.parent / "logs"
+        logs_dir.mkdir(exist_ok=True)
+        logger.add(logs_dir / "rabuddy.log", rotation="10 MB", retention="7 days")
+    
+    logger.info("🌐 RABuddy application starting up")
+    logger.info(f"🔧 Environment: {app_config.get('ENVIRONMENT', 'development')}")
     
     # Register blueprints
     try:
