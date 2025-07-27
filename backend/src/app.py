@@ -44,9 +44,9 @@ def create_app(config=None):
     
     # Register blueprints
     try:
-        from routes import api_bp
+        from routes_simple import api_bp
         app.register_blueprint(api_bp, url_prefix='/api')
-        logger.info("✅ API blueprint registered successfully")
+        logger.info("✅ Simplified API blueprint registered successfully")
     except Exception as e:
         logger.error(f"❌ Error registering API blueprint: {e}")
         import traceback
