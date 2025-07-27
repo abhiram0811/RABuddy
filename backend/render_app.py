@@ -54,6 +54,7 @@ def create_render_app():
         logger.info("🌐 RABuddy backend configured for Render deployment")
         logger.info(f"🔒 CORS configured for public access")
         logger.info(f"🚀 Ready to serve on port {config['PORT']}")
+        logger.info("📦 All dependencies loaded successfully")
         
         return app
         
