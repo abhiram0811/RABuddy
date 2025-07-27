@@ -3,7 +3,6 @@ import pdfplumber
 from typing import List, Dict, Any
 from pathlib import Path
 from loguru import logger
-import tiktoken
 
 class PDFProcessor:
     """Process PDF documents and extract text chunks with metadata"""
@@ -11,7 +10,8 @@ class PDFProcessor:
     def __init__(self, chunk_size: int = 400, chunk_overlap: int = 50):
         self.chunk_size = chunk_size
         self.chunk_overlap = chunk_overlap
-        self.tokenizer = tiktoken.get_encoding("cl100k_base")
+        # Use simple word-based tokenization instead of tiktoken
+        self.use_simple_tokenization = True
     
     def process_pdf(self, pdf_path: str) -> List[Dict[str, Any]]:
         """Process a PDF file and return chunks with metadata"""
@@ -90,24 +90,24 @@ class PDFProcessor:
                         'filename': filename,
                         'page_number': page_num,
                         'chunk_index': i,
-                        'token_count': len(self.tokenizer.encode(chunk_text))
+                        'token_count': len(chunk_text.split())  # Simple word count instead of tiktoken
                     })
         
         return chunks
     
     def _split_text_by_tokens(self, text: str) -> List[str]:
-        """Split text into chunks based on token count"""
-        tokens = self.tokenizer.encode(text)
+        """Split text into chunks based on word count (instead of tiktoken)"""
+        words = text.split()
         chunks = []
         
         start = 0
-        while start < len(tokens):
+        while start < len(words):
             # Calculate end position with overlap
-            end = min(start + self.chunk_size, len(tokens))
+            end = min(start + self.chunk_size, len(words))
             
-            # Extract chunk tokens
-            chunk_tokens = tokens[start:end]
-            chunk_text = self.tokenizer.decode(chunk_tokens)
+            # Extract chunk words
+            chunk_words = words[start:end]
+            chunk_text = ' '.join(chunk_words)
             
             chunks.append(chunk_text)
             
@@ -115,7 +115,7 @@ class PDFProcessor:
             start = end - self.chunk_overlap
             
             # Break if we're at the end
-            if end == len(tokens):
+            if end == len(words):
                 break
         
         return chunks
