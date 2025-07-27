@@ -3,8 +3,6 @@ import sys
 import logging
 from pathlib import Path
 from loguru import logger
-import uvloop
-import asyncio
 
 # Add the backend directory to Python path
 backend_dir = Path(__file__).parent
