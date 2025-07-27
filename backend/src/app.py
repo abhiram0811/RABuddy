@@ -24,10 +24,12 @@ def create_app(config=None):
     for key, value in app_config.items():
         app.config[key] = value
     
-    # Configure CORS for cloud deployment
-    CORS(app, origins=CORS_ORIGINS, 
-         allow_headers=["Content-Type", "Authorization"],
-         methods=["GET", "POST", "OPTIONS"])
+    # Configure CORS for cloud deployment - Allow all origins for production
+    CORS(app, 
+         origins="*",  # Allow all origins
+         allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Origin"],
+         methods=["GET", "POST", "OPTIONS"],
+         supports_credentials=False)
     
     # Setup logging (simplified for cloud)
     if app_config.get('ENVIRONMENT') == 'production':

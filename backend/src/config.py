@@ -42,7 +42,9 @@ CORS_ORIGINS = [
     "http://localhost:3006",
     "https://*.vercel.app",
     "https://rabuddy-frontend.vercel.app",
-    "https://*.render.com"
+    "https://*.render.com",
+    "https://rabuddy-oayjle78p-abhiram-reddy-mulintis-projects.vercel.app",
+    "*"  # Allow all origins for production testing
 ]
 
 # ChromaDB settings
