@@ -147,7 +147,7 @@ export default function ChatInterface() {
     setLoading(true)
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'http://localhost:5000/api'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://rabuddy-backend.onrender.com/api'
       console.log('API URL:', apiUrl)
       console.log('Environment variable:', process.env.NEXT_PUBLIC_API_URL)
       console.log('Sending request to:', `${apiUrl}/query`)
@@ -194,7 +194,8 @@ export default function ChatInterface() {
         if (error.name === 'AbortError') {
           errorContent = 'The request timed out. The query may be too complex. Please try a simpler question.'
         } else if (error.message.includes('Failed to fetch')) {
-          errorContent = 'Unable to connect to the backend. Please make sure the backend is running on port 5001.'
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://rabuddy-backend.onrender.com/api'
+          errorContent = `Unable to connect to the backend at ${apiUrl}. Please check the connection.`
         }
       }
       
