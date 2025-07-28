@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 WSGI entry point for Render deployment
-Using production app with full RAG capabilities
+Using robust production app with full RAG capabilities - v2.0
 """
 import os
 import sys
