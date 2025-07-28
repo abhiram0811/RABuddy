@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 WSGI entry point for Render deployment
-Simple, clean entry point without complex path manipulation
+Using minimal debug app for now to ensure deployment works
 """
 import os
 import sys
@@ -10,10 +10,9 @@ from pathlib import Path
 # Simple path setup
 current_dir = Path(__file__).parent
 sys.path.insert(0, str(current_dir))
-sys.path.insert(0, str(current_dir / "src"))
 
-# Import the app
-from render_app import app
+# Import the minimal debug app that we know works
+from minimal_debug_app import app
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 10000))
