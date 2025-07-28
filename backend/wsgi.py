@@ -1,23 +1,42 @@
 #!/usr/bin/env python3
 """
 WSGI entry point for Render deployment
-Using robust production app with full RAG capabilities - v2.0
+Using RAG-enabled app built on nuclear foundation - v3.0
 """
 import os
 import sys
 from pathlib import Path
 
-# Simple path setup
-current_dir = Path(__file__).parent
-sys.path.insert(0, str(current_dir))
+# Simple path setup - go up one level to access rag_app.py
+backend_dir = Path(__file__).parent
+root_dir = backend_dir.parent
+sys.path.insert(0, str(root_dir))
+sys.path.insert(0, str(backend_dir))
 
-# Import the robust production app with full RAG
+print(f"🚀 WSGI Starting - RAG App v3.0")
+print(f"📁 Backend dir: {backend_dir}")
+print(f"📁 Root dir: {root_dir}")
+
+# Import the RAG-enabled app
 try:
-    from robust_production_app import app
-    print("✅ Successfully imported robust_production_app")
+    from rag_app import app
+    print("✅ Successfully imported rag_app")
 except ImportError as e:
-    print(f"❌ Failed to import robust_production_app: {e}")
-    # Fallback to production_app if robust one fails
+    print(f"❌ Failed to import rag_app: {e}")
+    print("🔄 Falling back to nuclear_app...")
+    try:
+        sys.path.insert(0, str(root_dir))
+        from nuclear_app import app
+        print("✅ Successfully imported nuclear_app as fallback")
+    except ImportError as e2:
+        print(f"❌ Failed to import nuclear_app: {e2}")
+        # Last resort - create minimal app
+        from flask import Flask
+        app = Flask(__name__)
+        @app.route('/')
+        def home():
+            return {"status": "WSGI fallback active", "error": str(e)}
+        print("⚠️ Using minimal fallback app")
     try:
         from production_app import app
         print("✅ Fallback: Successfully imported production_app")
