@@ -2,7 +2,7 @@
 const nextConfig = {
   trailingSlash: true,
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://rabuddy-backend.onrender.com/api',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://rabuddy.onrender.com/api',
   },
 }
 
