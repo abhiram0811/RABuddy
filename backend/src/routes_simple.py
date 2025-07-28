@@ -18,9 +18,16 @@ def api_root():
         }
     })
 
-@api_bp.route('/query', methods=['POST'])
+@api_bp.route('/query', methods=['POST', 'OPTIONS'])
 def handle_query():
     """Handle user questions - simplified version for testing"""
+    if request.method == 'OPTIONS':
+        response = jsonify({'message': 'CORS preflight'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+        return response
+        
     try:
         data = request.get_json()
         if not data or 'question' not in data:
@@ -28,9 +35,10 @@ def handle_query():
         
         # Temporary response until we get the full RAG engine working
         return jsonify({
-            "answer": "Backend is working! Your question: " + data['question'],
+            "answer": f"Backend is working! Your question: {data['question']}. This is a test response while we fix the RAG engine.",
             "sources": [],
-            "session_id": "test-session"
+            "session_id": "test-session",
+            "query_id": "test-query-123"
         })
         
     except Exception as e:
@@ -38,9 +46,16 @@ def handle_query():
         logger.error(traceback.format_exc())
         return jsonify({"error": "Internal server error"}), 500
 
-@api_bp.route('/feedback', methods=['POST'])
+@api_bp.route('/feedback', methods=['POST', 'OPTIONS'])
 def handle_feedback():
     """Handle user feedback - simplified version"""
+    if request.method == 'OPTIONS':
+        response = jsonify({'message': 'CORS preflight'})
+        response.headers.add('Access-Control-Allow-Origin', '*')
+        response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+        response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+        return response
+        
     try:
         data = request.get_json()
         logger.info(f"Feedback received: {data}")

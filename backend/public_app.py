@@ -31,6 +31,9 @@ allowed_origins = [
     "http://localhost:3001", 
     "http://localhost:3002", 
     "http://localhost:3003",
+    "https://rabuddy-frontend.vercel.app",
+    "https://rabuddy-5ncawvp74-abhiram-reddy-mulintis-projects.vercel.app",
+    "https://rabuddy-oayjle78p-abhiram-reddy-mulintis-projects.vercel.app",
     "https://*.ngrok.io",
     "https://*.loca.lt",
     "https://*.cloudflare.com"
@@ -45,7 +48,7 @@ CORS(app,
      origins=allowed_origins + ["*"],  # Allow all for development
      methods=["GET", "POST", "OPTIONS"], 
      allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
-     supports_credentials=True)
+     supports_credentials=False)
 
 # Global variables for lazy loading
 rag_engine = None

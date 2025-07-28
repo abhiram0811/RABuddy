@@ -40,10 +40,11 @@ CORS_ORIGINS = [
     "http://localhost:3004",
     "http://localhost:3005",
     "http://localhost:3006",
-    "https://*.vercel.app",
     "https://rabuddy-frontend.vercel.app",
-    "https://*.render.com",
+    "https://rabuddy-5ncawvp74-abhiram-reddy-mulintis-projects.vercel.app",
     "https://rabuddy-oayjle78p-abhiram-reddy-mulintis-projects.vercel.app",
+    "https://*.ngrok.io",
+    "https://*.loca.lt",
     "*"  # Allow all origins for production testing
 ]
 

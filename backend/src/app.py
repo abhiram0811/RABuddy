@@ -24,10 +24,10 @@ def create_app(config=None):
     for key, value in app_config.items():
         app.config[key] = value
     
-    # Configure CORS for cloud deployment - Allow all origins for production
+    # Configure CORS for cloud deployment
     CORS(app, 
-         origins="*",  # Allow all origins
-         allow_headers=["Content-Type", "Authorization", "Access-Control-Allow-Origin"],
+         origins=CORS_ORIGINS,
+         allow_headers=["Content-Type", "Authorization", "X-Requested-With"],
          methods=["GET", "POST", "OPTIONS"],
          supports_credentials=False)
     
@@ -55,9 +55,17 @@ def create_app(config=None):
         logger.error(traceback.format_exc())
         
         # Fallback: Add routes directly to app
-        @app.route('/api/query', methods=['POST'])
+        @app.route('/api/query', methods=['POST', 'OPTIONS'])
         def handle_query():
             """Handle user questions - direct route fallback"""
+            if request.method == 'OPTIONS':
+                from flask import jsonify
+                response = jsonify({'message': 'CORS preflight'})
+                response.headers.add('Access-Control-Allow-Origin', '*')
+                response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+                response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+                return response
+                
             try:
                 from flask import request, jsonify
                 data = request.get_json()
@@ -65,18 +73,27 @@ def create_app(config=None):
                     return jsonify({"error": "Question is required"}), 400
                 
                 return jsonify({
-                    "answer": "Backend is working! Your question: " + data['question'],
+                    "answer": f"Backend is working! Your question: {data['question']} (This is a test response while we fix the RAG engine.)",
                     "sources": [],
-                    "session_id": "test-session"
+                    "session_id": "test-session",
+                    "query_id": "test-query-123"
                 })
                 
             except Exception as e:
                 logger.error(f"Error in /query endpoint: {str(e)}")
                 return jsonify({"error": "Internal server error"}), 500
 
-        @app.route('/api/feedback', methods=['POST'])
+        @app.route('/api/feedback', methods=['POST', 'OPTIONS'])
         def handle_feedback():
             """Handle user feedback - direct route"""
+            if request.method == 'OPTIONS':
+                from flask import jsonify
+                response = jsonify({'message': 'CORS preflight'})
+                response.headers.add('Access-Control-Allow-Origin', '*')
+                response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+                response.headers.add('Access-Control-Allow-Methods', 'GET,POST,OPTIONS')
+                return response
+                
             try:
                 from flask import request, jsonify
                 data = request.get_json()
