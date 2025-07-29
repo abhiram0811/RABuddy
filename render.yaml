@@ -1,4 +1,4 @@
-# RAG APP ONLY - NUCLEAR APP DELETED - July 29, 2025
+# FORCE RENDER REFRESH - RAG APP ONLY - July 29, 2025 - 05:51 UTC
 services:
   - type: web
     name: rabuddy-backend
@@ -16,3 +16,5 @@ services:
         value: production
       - key: ENVIRONMENT  
         value: production
+      - key: FORCE_REFRESH
+        value: "2025-07-29-05-51"
