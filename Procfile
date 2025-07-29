@@ -1,2 +1,2 @@
-# Render Backend Configuration  
-web: cd backend && gunicorn --bind 0.0.0.0:$PORT --workers 1 --timeout 120 --pythonpath . wsgi:app
+# GUARANTEED RAG APP DEPLOYMENT - NO NUCLEAR FALLBACK
+web: cd backend && python guaranteed_rag_app.py
