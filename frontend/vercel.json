@@ -1,5 +1,10 @@
 {
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://rabuddy-backend.onrender.com/api"
+    "NEXT_PUBLIC_API_URL": "https://rabuddy.onrender.com/api"
+  },
+  "build": {
+    "env": {
+      "NEXT_PUBLIC_API_URL": "https://rabuddy.onrender.com/api"
+    }
   }
 }
