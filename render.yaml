@@ -1,11 +1,12 @@
+# RAG APP ONLY - NUCLEAR APP DELETED - July 29, 2025
 services:
   - type: web
     name: rabuddy-backend
     env: python
     buildCommand: "pip install --no-cache-dir -r backend/requirements.txt"
-    startCommand: "cd backend && python wsgi.py"
+    startCommand: "cd backend && python guaranteed_rag_app.py"
     plan: free
-    healthCheckPath: /health
+    healthCheckPath: /
     envVars:
       - key: PYTHON_VERSION
         value: 3.11.0

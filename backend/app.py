@@ -1,16 +1,13 @@
-import os
-import sys
-from pathlib import Path
+#!/usr/bin/env python3
+"""
+DIRECT RAG APP ENTRY POINT - NO FALLBACKS!
+"""
 
-# Add the src directory to Python path
-current_dir = Path(__file__).parent
-src_dir = current_dir / "src"
-sys.path.insert(0, str(src_dir))
+# Direct import - no fallbacks!
+from guaranteed_rag_app import app
 
-from src.app import create_app
-
-app = create_app()
-
-if __name__ == "__main__":
-    port = int(os.environ.get("PORT", 5000))
-    app.run(host="0.0.0.0", port=port, debug=os.environ.get("FLASK_ENV") == "development")
+if __name__ == '__main__':
+    import os
+    port = int(os.environ.get('PORT', 10000))
+    print(f"🚀🔥 DIRECT RAG APP START on port {port} 🔥🚀")
+    app.run(host='0.0.0.0', port=port, debug=False)
