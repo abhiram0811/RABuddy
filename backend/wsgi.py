@@ -1,30 +1,29 @@
 #!/usr/bin/env python3
 """
 WSGI entry point for Render deployment
-Using RAG-enabled app built on nuclear foundation - v3.0
+Using Production RAG app built on nuclear foundation - v4.0
 """
 import os
 import sys
 from pathlib import Path
 
-# Simple path setup - go up one level to access rag_app.py
+# Simple path setup
 backend_dir = Path(__file__).parent
-root_dir = backend_dir.parent
-sys.path.insert(0, str(root_dir))
 sys.path.insert(0, str(backend_dir))
 
-print(f"🚀 WSGI Starting - RAG App v3.0")
+print(f"🚀 WSGI Starting - Production RAG App v4.0")
 print(f"📁 Backend dir: {backend_dir}")
-print(f"📁 Root dir: {root_dir}")
 
-# Import the RAG-enabled app
+# Import the Production RAG app (built on nuclear foundation)
 try:
-    from rag_app import app
-    print("✅ Successfully imported rag_app")
+    from production_rag_app import app
+    print("✅ Successfully imported production_rag_app")
 except ImportError as e:
-    print(f"❌ Failed to import rag_app: {e}")
+    print(f"❌ Failed to import production_rag_app: {e}")
     print("🔄 Falling back to nuclear_app...")
     try:
+        # Go up one level to access nuclear_app.py
+        root_dir = backend_dir.parent
         sys.path.insert(0, str(root_dir))
         from nuclear_app import app
         print("✅ Successfully imported nuclear_app as fallback")
