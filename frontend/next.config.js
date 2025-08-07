@@ -2,7 +2,7 @@
 const nextConfig = {
   trailingSlash: true,
   env: {
-    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://rabuddy.onrender.com/api',
+    NEXT_PUBLIC_API_URL: process.env.NEXT_PUBLIC_API_URL || 'https://6c3861215b0a.ngrok-free.app',
   },
   // Force cache bust - updated timestamp
   generateBuildId: async () => {

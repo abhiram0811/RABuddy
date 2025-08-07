@@ -1,2 +1,2 @@
-# FORCE RAG DEPLOYMENT WITH DEPENDENCY INSTALLATION
-web: ./start_rag.sh
+# RABuddy ngrok deployment
+web: ./start_backend.sh

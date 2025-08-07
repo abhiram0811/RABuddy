@@ -160,6 +160,7 @@ export default function ChatInterface() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify({ question: userMessage.content }),
         signal: controller.signal,
@@ -218,6 +219,7 @@ export default function ChatInterface() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true',
         },
         body: JSON.stringify({
           query_id: queryId,

@@ -13,7 +13,10 @@ export default function Header() {
         const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://107bc118b418.ngrok-free.app'
         const response = await fetch(`${apiUrl}/api/health`, {
           method: 'GET',
-          headers: { 'Accept': 'application/json' }
+          headers: { 
+            'Accept': 'application/json',
+            'ngrok-skip-browser-warning': 'true'
+          }
         })
         
         if (response.ok) {
