@@ -1,0 +1,9 @@
+{
+  "buildCommand": "cd frontend && npm run build",
+  "outputDirectory": "frontend/.next",
+  "installCommand": "cd frontend && npm install",
+  "framework": null,
+  "env": {
+    "NEXT_PUBLIC_API_URL": "https://107bc118b418.ngrok-free.app"
+  }
+}
