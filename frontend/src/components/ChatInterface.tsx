@@ -147,16 +147,16 @@ export default function ChatInterface() {
     setLoading(true)
 
     try {
-      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://rabuddy.onrender.com/api'
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://107bc118b418.ngrok-free.app'
       console.log('API URL:', apiUrl)
       console.log('Environment variable:', process.env.NEXT_PUBLIC_API_URL)
-      console.log('Sending request to:', `${apiUrl}/query`)
+      console.log('Sending request to:', `${apiUrl}/api/query`)
       console.log('Request body:', { question: userMessage.content })
       
       const controller = new AbortController()
       const timeoutId = setTimeout(() => controller.abort(), 60000) // 60 second timeout
       
-      const response = await fetch(`${apiUrl}/query`, {
+      const response = await fetch(`${apiUrl}/api/query`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -178,10 +178,10 @@ export default function ChatInterface() {
       console.log('Response data:', data)
 
       const assistantMessage: Message = {
-        id: data.query_id,
+        id: data.session_id || data.query_id || Date.now().toString(),
         type: 'assistant',
         content: data.answer,
-        sources: data.sources,
+        sources: data.sources || [],
         timestamp: new Date()
       }
 
@@ -194,7 +194,7 @@ export default function ChatInterface() {
         if (error.name === 'AbortError') {
           errorContent = 'The request timed out. The query may be too complex. Please try a simpler question.'
         } else if (error.message.includes('Failed to fetch')) {
-          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://rabuddy.onrender.com/api'
+          const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://107bc118b418.ngrok-free.app'
           errorContent = `Unable to connect to the backend at ${apiUrl}. Please check the connection.`
         }
       }
@@ -213,7 +213,8 @@ export default function ChatInterface() {
 
   const handleFeedback = async (queryId: string, type: 'positive' | 'negative') => {
     try {
-      await fetch(`${process.env.NEXT_PUBLIC_API_URL}/feedback`, {
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://107bc118b418.ngrok-free.app'
+      await fetch(`${apiUrl}/api/feedback`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
