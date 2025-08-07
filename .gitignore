@@ -21,6 +21,10 @@ build/
 *.sqlite
 *.sqlite3
 chroma_db/
+chroma_store/
+chroma_store_*/
+chroma_store_enhanced/
+chroma_store_backup/
 vector_db/
 
 # Python
