@@ -242,8 +242,6 @@ body {
     padding: 1px 4px;
   }
 }
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-}
 
 /* Enhanced numbered list styling */
 .formatted-response ol.list-none {
