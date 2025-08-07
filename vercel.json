@@ -4,6 +4,6 @@
   "installCommand": "cd frontend && npm install",
   "framework": null,
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://107bc118b418.ngrok-free.app"
+    "NEXT_PUBLIC_API_URL": "https://dc6a1239e682.ngrok-free.app"
   }
 }

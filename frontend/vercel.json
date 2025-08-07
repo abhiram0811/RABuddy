@@ -1,10 +1,10 @@
 {
   "env": {
-    "NEXT_PUBLIC_API_URL": "https://6c3861215b0a.ngrok-free.app"
+    "NEXT_PUBLIC_API_URL": "https://dc6a1239e682.ngrok-free.app"
   },
   "build": {
     "env": {
-      "NEXT_PUBLIC_API_URL": "https://6c3861215b0a.ngrok-free.app"
+      "NEXT_PUBLIC_API_URL": "https://dc6a1239e682.ngrok-free.app"
     }
   }
 }
